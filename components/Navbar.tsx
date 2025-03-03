@@ -2,6 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { auth, signIn, signOut } from "@/auth"
+import { BadgePlus, LogOut } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 
 const Navbar = async () => {
     const session = await auth()
@@ -17,21 +20,33 @@ const Navbar = async () => {
                         {session && session?.user ? (
                             <>
                                 <Link href="/startup/create">
-                                    <span> create</span>
-                                </Link>
-
-
-                                <Link href="/">
-                                    <span> {session?.user?.name}</span>
+                                    <span className='max-sm:hidden border-2 border-blue-950 rounded-lg p-2'> create</span>
+                                    <BadgePlus className='size-6 sm:hidden' />
                                 </Link>
 
                                 <form action={async () => {
                                     "use server"
                                     await signOut({ redirectTo: "/" });
                                 }}>
-                                    <button type='submit'>logOut</button>
+                                    <button type='submit'>
+                                        <span className='max-sm:hidden border-2 border-blue-950 rounded-lg p-2'>logOut</span>
+                                        <LogOut className='size-6 sm:hidden' />
+
+
+                                    </button>
 
                                 </form>
+
+
+                                <Link href={`/user/${session?.id}`}>
+                                    <Avatar className="size-10">
+                                        <AvatarImage
+                                            src={session?.user?.image || ""}
+                                            alt={session?.user?.name || ""}
+                                        />
+                                        <AvatarFallback>AV</AvatarFallback>
+                                    </Avatar>
+                                </Link>
                             </>
 
                         ) : (
@@ -39,7 +54,7 @@ const Navbar = async () => {
                                 "use server"
                                 await signIn('github')
                             }}>
-                                <button type='submit'>logIn</button>
+                                <button type='submit' className='border-2 border-blue-950 rounded-lg p-2'>logIn</button>
                             </form>
 
                         )}

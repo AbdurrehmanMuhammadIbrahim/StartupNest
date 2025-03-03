@@ -12,8 +12,8 @@ import { z } from "zod";
 import { createPitch } from '@/lib/actions';
 
 const StartupForm = () => {
-    const [errors, setErrors] = useState<Record<string, string>>({});
-    const [pitch, setPitch] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [pitch, setPitch] = useState("");
   const { toast } = useToast();
   const router = useRouter();
 
@@ -68,17 +68,17 @@ const StartupForm = () => {
         status: "ERROR",
       };
     }
- };
+  };
 
   const [state, formAction, isPending] = useActionState(handleFormSubmit, {
     error: "",
     status: "INITIAL",
   });
 
-  
-    return (
+
+  return (
     <form action={formAction} className='startup-form'>
-         <div>
+      <div>
         <label htmlFor="title" className="startup-form_label">
           Title
         </label>

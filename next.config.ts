@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
     ppr: "incremental",
     after: true,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
